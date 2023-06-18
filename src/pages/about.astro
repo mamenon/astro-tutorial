@@ -1,5 +1,5 @@
 ---
-import "../styles/styles.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About Me";
 
@@ -15,61 +15,46 @@ const skillColor = "navy";
 const bodycolor = "#eee";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <!-- <title>Astro</title> -->
-    <title>{pageTitle}</title>
-  </head>
-  <style define:vars={{ skillColor, bodycolor }}>
-    body {
-      background: var(--bodycolor);
+<style define:vars={{ skillColor, bodycolor }}>
+  body {
+    background: var(--bodycolor);
+  }
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: bold;
+  }
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <h2>... and my new Astro site!</h2>
+
+  <p>
+    I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I
+    built myself!
+  </p>
+
+  <p>
+    This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!
+  </p>
+
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>私の名前は{identity.firstName}です</li>
+    <li>私は{identity.country}に住んでいて、{identity.occupation}として働いています。</li>
+    {
+      identity.hobbies.length >= 2 && (
+        <li>
+          Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}
+        </li>
+      )
     }
-    h1 {
-      color: purple;
-      font-size: 4rem;
-    }
-    .skill {
-      color: var(--skillColor);
-      font-weight: bold;
-    }
-  </style>
-  <body>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/blog/">Blog</a>
-    <!-- <h1>About Me</h1> -->
-    <h1>{pageTitle}</h1>
-
-    <h2>... and my new Astro site!</h2>
-
-    <p>
-      I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one
-      I built myself!
-    </p>
-
-    <p>
-      This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!
-    </p>
-
-    <p>Here are a few facts about me:</p>
-    <ul>
-      <li>私の名前は{identity.firstName}です</li>
-      <li>私は{identity.country}に住んでいて、{identity.occupation}として働いています。</li>
-      {
-        identity.hobbies.length >= 2 && (
-          <li>
-            Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}
-          </li>
-        )
-      }
-    </ul>
-    <p>Skills</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
-  </body>
-</html>
+  </ul>
+  <p>Skills</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+</BaseLayout>
